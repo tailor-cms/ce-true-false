@@ -58,7 +58,7 @@ const emit = defineEmits(['interaction']);
 
 const form = ref<HTMLFormElement>();
 const submitted = ref('isCorrect' in (props.userState ?? {}));
-const selectedAnswer = ref<string[]>(props.userState?.response ?? null);
+const selectedAnswer = ref<boolean>(props.userState?.response ?? null);
 
 const submit = async () => {
   const { valid } = await form.value?.validate();
