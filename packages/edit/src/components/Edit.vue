@@ -1,42 +1,92 @@
 <template>
-  <div class="tce-container">
-    <div>This is Edit version of the content element id: {{ element?.id }}</div>
-    <div class="mt-6 mb-2">
-      Counter:
-      <span class="font-weight-bold">{{ element.data.count }}</span>
+  <VForm
+    ref="form"
+    class="tce-container"
+    validate-on="submit"
+    @submit.prevent="save"
+  >
+    <VTextarea
+      v-model="elementData.question"
+      :readonly="isDisabled"
+      :rules="[requiredRule]"
+      class="my-3"
+      label="Question"
+      rows="3"
+      auto-grow
+    />
+    <div class="text-subtitle-2 mb-2">Select correct answer</div>
+    <VRadioGroup
+      id="correct-answer"
+      v-model="elementData.correct"
+      :rules="[(val: any) => val ?? 'Please choose the correct answer']"
+      density="comfortable"
+    >
+      <VRadio
+        v-for="value in [true, false]"
+        :key="value"
+        :error="correctAnswerValidation"
+        :label="value ? 'True' : 'False'"
+        :readonly="isDisabled"
+        :value="value"
+        color="primary"
+        hide-details
+      />
+    </VRadioGroup>
+    <div v-if="!isDisabled" class="d-flex justify-end">
+      <VBtn :disabled="isDirty" variant="text" @click="cancel">Cancel</VBtn>
+      <VBtn :disabled="isDirty" class="ml-2" type="submit" variant="tonal">
+        Save
+      </VBtn>
     </div>
-    <button @click="increment">Increment</button>
-  </div>
+  </VForm>
 </template>
 
 <script lang="ts" setup>
-import { defineEmits, defineProps } from 'vue';
-import { Element } from '@tailor-cms/ce-true-false-manifest';
+import { computed, defineEmits, defineProps, reactive, ref, watch } from 'vue';
+import { Element, ElementData } from '@tailor-cms/ce-true-false-manifest';
+import cloneDeep from 'lodash/cloneDeep';
+import isEqual from 'lodash/isEqual';
 
 const emit = defineEmits(['save']);
-const props = defineProps<{ element: Element; isFocused: boolean }>();
+const props = defineProps<{
+  element: Element;
+  isFocused: boolean;
+  isDisabled: boolean;
+}>();
 
-const increment = () => {
-  const { data } = props.element;
-  const count = data.count + 1;
-  emit('save', { ...data, count });
+const form = ref<HTMLFormElement>();
+const elementData = reactive<ElementData>(cloneDeep(props.element.data));
+
+const isDirty = computed(() => isEqual(elementData, props.element.data));
+const correctAnswerValidation = computed(() => {
+  const radioGroup = form.value?.items.find(
+    (it: any) => (it.id = 'correct-answer'),
+  );
+  return radioGroup?.isValid === false;
+});
+
+const save = async () => {
+  const { valid } = await form.value?.validate();
+  if (valid) emit('save', elementData);
 };
+
+const cancel = () => {
+  Object.assign(elementData, cloneDeep(props.element.data));
+  form.value?.resetValidation();
+};
+
+const requiredRule = (val: string | boolean | number) => {
+  return !!val || 'The field is required';
+};
+
+watch(
+  () => props.element.data,
+  (data) => Object.assign(elementData, cloneDeep(data)),
+);
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .tce-container {
-  background-color: transparent;
-  margin-top: 1rem;
-  padding: 1.5rem;
-  border: 2px dashed #888;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 1rem;
-}
-
-button {
-  margin: 1rem 0 0 0;
-  padding: 0.25rem 1rem;
-  background-color: #eee;
-  border: 1px solid #444;
+  text-align: left;
 }
 </style>
