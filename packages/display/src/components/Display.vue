@@ -58,7 +58,7 @@ const emit = defineEmits(['interaction']);
 
 const form = ref<HTMLFormElement>();
 const submitted = ref('isCorrect' in (props.userState ?? {}));
-const selectedAnswer = ref<string[]>(props.userState?.response);
+const selectedAnswer = ref<string[]>(props.userState?.response ?? null);
 
 const submit = async () => {
   const { valid } = await form.value?.validate();
@@ -77,7 +77,7 @@ const requiredRule = (val: string | boolean | number) => {
 watch(
   () => props.userState,
   (state = {}) => {
-    selectedAnswer.value = state.response;
+    selectedAnswer.value = state.response ?? null;
     submitted.value = 'isCorrect' in state;
   },
   { deep: true },
