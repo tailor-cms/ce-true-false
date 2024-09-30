@@ -33,7 +33,7 @@
   "dependencies": {
     "lodash": "^4.17.21"
   },
-  "description": "Tailor CMS true false element",
+  "description": "Tailor CMS true - false element",
   "author": "Studion <info@gostudion.com> (https://github.com/tailor-cms)",
   "publishConfig": {
     "access": "public"

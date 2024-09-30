@@ -1,6 +1,6 @@
 {
   "name": "@tailor-cms/ce-true-false-server",
-  "description": "Tailor CMS true false element",
+  "description": "Tailor CMS true - false element",
   "author": "Studion <info@gostudion.com> (https://github.com/tailor-cms)",
   "type": "module",
   "version": "0.0.1",
