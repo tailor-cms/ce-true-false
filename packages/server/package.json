@@ -1,6 +1,6 @@
 {
   "name": "@tailor-cms/ce-true-false-server",
-  "description": "Tailor CMS true false element",
+  "description": "Tailor CMS true - false element",
   "author": "Studion <info@gostudion.com> (https://github.com/tailor-cms)",
   "type": "module",
   "version": "0.0.1",
@@ -25,6 +25,7 @@
     "@tailor-cms/ce-true-false-manifest": "workspace:*",
     "@tailor-cms/cek-common": "^0.0.3",
     "@tailor-cms/eslint-config": "0.0.2",
+    "@types/lodash": "^4.17.6",
     "tsup": "^7.2.0",
     "typescript": "^5.1.6"
   },
@@ -44,6 +45,9 @@
     "minify": false,
     "clean": false,
     "dts": true
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
   },
   "publishConfig": {
     "access": "public"
