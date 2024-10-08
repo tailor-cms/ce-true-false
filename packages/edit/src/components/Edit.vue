@@ -18,7 +18,7 @@
     <VRadioGroup
       id="correct-answer"
       v-model="elementData.correct"
-      :rules="[(val: any) => val ?? 'Please choose the correct answer']"
+      :rules="[requiredRule]"
       density="comfortable"
     >
       <VRadio
@@ -76,7 +76,8 @@ const cancel = () => {
 };
 
 const requiredRule = (val: string | boolean | number) => {
-  return !!val || 'The field is required';
+  if (val !== null && val !== undefined && val !== '') return true;
+  return 'The field is required';
 };
 
 watch(
