@@ -1,6 +1,8 @@
 export interface ElementData {
   question: string;
-  correct: boolean | null;
+  correct?: boolean | null;
+  hint: string;
+  feedback: { [key: number]: string };
 }
 
 export interface Element {
