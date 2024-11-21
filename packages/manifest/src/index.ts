@@ -14,7 +14,6 @@ export const name = 'True - False';
 // entity)
 export const initState: DataInitializer = (): ElementData => ({
   question: '',
-  correct: null,
   hint: '',
   feedback: {},
 });
