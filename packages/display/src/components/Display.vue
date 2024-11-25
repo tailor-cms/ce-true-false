@@ -1,6 +1,31 @@
 <template>
   <VForm ref="form" class="tce-root" @submit.prevent="submit">
-    <div class="px-2 my-4">{{ data.question }}</div>
+    <!-- eslint-disable-next-line vue/no-v-html -->
+    <div class="rich-text px-2 my-4" v-html="data.question"></div>
+    <div v-if="data.hint" class="d-flex justify-end mb-4">
+      <VTooltip
+        v-model="showHint"
+        :open-on-hover="false"
+        location="bottom"
+        max-width="350"
+        close-on-back
+        open-on-click
+      >
+        <template #activator="{ isActive, props: tooltipProps }">
+          <VBtn
+            v-click-outside="() => (showHint = false)"
+            v-bind="tooltipProps"
+            :active="isActive"
+            :prepend-icon="`mdi-lightbulb-${isActive ? 'on' : 'outline'}`"
+            size="small"
+            text="Hint"
+            variant="text"
+            rounded
+          />
+        </template>
+        {{ data.hint }}
+      </VTooltip>
+    </div>
     <VInput
       :rules="[requiredRule]"
       :validation-value="selectedAnswer !== null"
@@ -36,8 +61,7 @@
     </VInput>
     <VAlert
       v-if="submitted"
-      :text="userState?.isCorrect ? 'Correct' : 'Incorrect'"
-      :type="userState?.isCorrect ? 'success' : 'error'"
+      v-bind="alertProps"
       class="mb-3"
       rounded="lg"
       variant="tonal"
@@ -50,19 +74,32 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { ElementData } from '@tailor-cms/ce-true-false-manifest';
 
 const props = defineProps<{ id: number; data: ElementData; userState: any }>();
 const emit = defineEmits(['interaction']);
 
 const form = ref<HTMLFormElement>();
-const submitted = ref('isCorrect' in (props.userState ?? {}));
+const showHint = ref(false);
+const submitted = ref(false);
 const selectedAnswer = ref<boolean>(props.userState?.response ?? null);
+
+const alertProps = computed(() => {
+  const isGraded = 'isCorrect' in props.userState;
+  const isCorrect = props.userState.isCorrect;
+
+  if (!isGraded) return { text: 'Submitted', type: 'info' };
+  if (isCorrect) return { text: 'Correct', type: 'success' };
+  return { text: 'Incorrect', type: 'error' };
+});
 
 const submit = async () => {
   const { valid } = await form.value?.validate();
-  if (valid) emit('interaction', { response: selectedAnswer.value });
+  if (valid) {
+    submitted.value = true;
+    emit('interaction', { response: selectedAnswer.value });
+  }
 };
 
 const getIcon = (value: boolean, isSelected: boolean) => {
@@ -78,7 +115,6 @@ watch(
   () => props.userState,
   (state = {}) => {
     selectedAnswer.value = state.response ?? null;
-    submitted.value = 'isCorrect' in state;
   },
   { deep: true },
 );

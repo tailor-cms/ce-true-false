@@ -34,6 +34,7 @@ const manifest: ElementManifest = {
   type,
   version: '1.0',
   name,
+  isQuestion: true,
   ssr: false,
   initState,
   ui,
