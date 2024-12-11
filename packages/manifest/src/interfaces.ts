@@ -1,5 +1,6 @@
 export interface ElementData {
-  question: string;
+  embeds: Record<string, any>;
+  question: string[];
   correct?: boolean | null;
   hint: string;
   feedback: { [key: number]: string };
