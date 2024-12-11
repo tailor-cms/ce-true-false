@@ -32,6 +32,7 @@ export interface ElementManifest {
   version: string;
   name: string;
   ssr: boolean;
+  isComposite: boolean;
   isQuestion: boolean;
   initState: DataInitializer;
   Edit?: object;
