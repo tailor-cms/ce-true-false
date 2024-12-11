@@ -18,11 +18,11 @@ importers:
         specifier: 0.0.2
         version: 0.0.2(kwjg6bvyxkamsvavde6mxjk73q)
       '@tailor-cms/tce-boot':
+        specifier: 0.6.19
+        version: 0.6.19(@babel/parser@7.23.9)(@types/node@20.11.19)(rollup@4.12.0)
+      '@tailor-cms/tce-display-runtime':
         specifier: 0.6.6
         version: 0.6.6(@babel/parser@7.23.9)(@types/node@20.11.19)(rollup@4.12.0)
-      '@tailor-cms/tce-display-runtime':
-        specifier: 0.6.0
-        version: 0.6.0(@babel/parser@7.23.9)(@types/node@20.11.19)(rollup@4.12.0)
       '@types/node':
         specifier: ^20.5.7
         version: 20.11.19
@@ -38,6 +38,9 @@ importers:
 
   packages/display:
     dependencies:
+      '@tailor-cms/lx-components':
+        specifier: ^0.0.2
+        version: 0.0.2(vue@3.3.4)(vuetify@3.7.3)
       vue:
         specifier: ^3.3.4
         version: 3.3.4
@@ -64,8 +67,8 @@ importers:
   packages/edit:
     dependencies:
       '@tailor-cms/core-components':
-        specifier: ^1.0.14
-        version: 1.0.14(@tailor-cms/utils@1.0.1)(@tiptap/core@2.10.1(@tiptap/pm@2.10.1))(@tiptap/pm@2.10.1)(@tiptap/starter-kit@2.10.1)(@tiptap/vue-3@2.10.1(@tiptap/core@2.10.1(@tiptap/pm@2.10.1))(@tiptap/pm@2.10.1)(vue@3.3.4))(@types/lodash@4.17.9)(@types/pluralize@0.0.33)(date-fns@3.3.1)(lodash@4.17.21)(p-min-delay@4.0.2)(pluralize@8.0.0)(vee-validate@4.14.7(vue@3.3.4))(vue@3.3.4)(vuedraggable@4.1.0(vue@3.3.4))(vuetify@3.7.3)(yup@1.3.3)
+        specifier: ^1.0.20
+        version: 1.0.20(@tailor-cms/utils@1.0.1)(@tiptap/core@2.10.1(@tiptap/pm@2.10.1))(@tiptap/pm@2.10.1)(@tiptap/starter-kit@2.10.1)(@tiptap/vue-3@2.10.1(@tiptap/core@2.10.1(@tiptap/pm@2.10.1))(@tiptap/pm@2.10.1)(vue@3.3.4))(@types/lodash@4.17.9)(@types/pluralize@0.0.33)(date-fns@3.3.1)(lodash@4.17.21)(p-min-delay@4.0.2)(pluralize@8.0.0)(vee-validate@4.14.7(vue@3.3.4))(vue@3.3.4)(vuedraggable@4.1.0(vue@3.3.4))(vuetify@3.7.3)(yup@1.3.3)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -696,8 +699,8 @@ packages:
   '@tailor-cms/cek-common@0.0.3':
     resolution: {integrity: sha512-QZGKfGb8sdmS/4U2ZdbG8VKD816Q2AoL4t23/WGXyo5wgpdjw4n9eNYNTwv8kp/pE02LzSBG+CUOMTb3UAqPoA==}
 
-  '@tailor-cms/core-components@1.0.14':
-    resolution: {integrity: sha512-Rk2j+vjhCdLRru5QlksOvnsLBMg4AW/mqU5gtIu5aiM5VthsMh4YZ1kubTIMXEMwEvsgG5mb9SikpJ2MnlfZaQ==}
+  '@tailor-cms/core-components@1.0.20':
+    resolution: {integrity: sha512-e5PU0ggSkIZj7fuZk2pypvK+9ReOY2noBMewTcfkxPjDa/7+9U50Z/OA6i3SdY/GDX93vh34SeMhr6SBIOxojQ==}
     peerDependencies:
       '@tailor-cms/utils': 1.0.1
       '@tiptap/pm': ^2.4.0
@@ -733,14 +736,20 @@ packages:
       eslint-plugin-vue: '>=9.17.0'
       eslint-plugin-vuejs-accessibility: '>=2.2.0'
 
-  '@tailor-cms/tce-boot@0.6.6':
-    resolution: {integrity: sha512-cixfOADdCaODrGYNiKw7QT2pnKwJ/hF4bt+s8a8QICozR4JdpCYlFQ5iT0ivSWg9/0blixx3nfFmO/CNGMcYNQ==}
+  '@tailor-cms/lx-components@0.0.2':
+    resolution: {integrity: sha512-7VlnCayqFThKEuEGcDdTbuAKRn921Y4v27TL1CFQyTvkIGLQYwgsgV32aYmUYV8FEnykTkay6l3TbDOhHeEZiA==}
+    peerDependencies:
+      vue: ^3.3.4
+      vuetify: 3.7.0
 
-  '@tailor-cms/tce-display-runtime@0.6.0':
-    resolution: {integrity: sha512-mG0EQcTMPBFolqEvsByPRn14MQaU/6xaksX0dKz7H/8V3MfZOUPKEq1NOeEAiIuxTOYjSPjmf+my4n5q0vf15A==}
+  '@tailor-cms/tce-boot@0.6.19':
+    resolution: {integrity: sha512-itJmAKR8kyYG1/P2bII6NrGigA/0aYa/MHrqOrTTwDDsyj/r09b1iG9dnqFOXxLfp+1mCIgwWmE1sSwQDRJlUA==}
 
-  '@tailor-cms/tce-edit-next-runtime@0.6.6':
-    resolution: {integrity: sha512-bPW6YCy+re985zJBBqXsF9C8SnOdFOPwPB/VZh21AqDZZsvO30+ZmNWxn6ahTTtprgEZp1QYZfOwKM6oov05NA==}
+  '@tailor-cms/tce-display-runtime@0.6.6':
+    resolution: {integrity: sha512-7BsxY8C4GXISwcJmRM8HT92KEc6Sorv+nn6pOTYj+qr2GNs6WO46VKhMroMzdpT7Own7z26/+pml6LfMm7YdtQ==}
+
+  '@tailor-cms/tce-edit-next-runtime@0.6.19':
+    resolution: {integrity: sha512-KG7QFJ6w+gPp7+4xCgTu72HqmEOZeIGqeuOsGj2/Ho/V1n+IHmB/gshwsoCNGQhcPSIn9WxU7b0quuYJ0e3DXQ==}
 
   '@tailor-cms/tce-edit-runtime@0.5.0':
     resolution: {integrity: sha512-/EOSELuBg+OOH5ItwCZrL2LlX9wSGyjPZexPC4lo2a/njbiorfuAjamy35mEYsG87Ets3kTf1aHrlK++g5sOsw==}
@@ -748,8 +757,8 @@ packages:
   '@tailor-cms/tce-preview-runtime@0.5.0':
     resolution: {integrity: sha512-gCky2H6iWZw3JkQN1JxOE1ly0Ws4uzhC2VKB/qA47BV0r1GHlQKgHoUROqFqCjAMwQVL1LiGfmcc2Nun83hmnA==}
 
-  '@tailor-cms/tce-server-runtime@0.5.1':
-    resolution: {integrity: sha512-3Ooy1sA9le9JvPCQpxysdSDaUpVIsQZLAOWTXS2Ohw3QyHvjecfIZ92yJJe94RbeG1uUeqC+fM4FV4eJ/S7n8g==}
+  '@tailor-cms/tce-server-runtime@0.5.3':
+    resolution: {integrity: sha512-XnXBtK8CTgvNxCJNQ88bLATDrrBb3CtTb2xNh8cm8wxwwZX0IO6Mnq52n9ionaTipc9vNAfoynybVtrhIVeQgg==}
 
   '@tailor-cms/utils@1.0.1':
     resolution: {integrity: sha512-n3gml5vqlap3g8uNb66PAILi52prw0KGb3nNCZzPRykwzCMtJjCji9a8j9hm7qf5EBLjgNtB9s49LUZTU/FwXA==}
@@ -782,8 +791,8 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.7.0
 
-  '@tiptap/extension-character-count@2.10.1':
-    resolution: {integrity: sha512-Fc27gAe4gVJRAa57UGYhuDvVMNIgJgWlL53p1o906gaVEtlqRSZN4OTuIxG38PonNYTw/6O3GVWiCVfvF4XtuA==}
+  '@tiptap/extension-character-count@2.10.3':
+    resolution: {integrity: sha512-7L3VS9+SZqwK94/Yk4c+NEpI6kDUAYW3tYGuxCRiKHDlUy3fkXkVkPlxsoNUpAA4O05KGAwD0YW5rvAkNXdi8w==}
     peerDependencies:
       '@tiptap/core': ^2.7.0
       '@tiptap/pm': ^2.7.0
@@ -869,13 +878,13 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.7.0
 
-  '@tiptap/extension-subscript@2.10.1':
-    resolution: {integrity: sha512-Sx66F962MylEiDWapBfVfFxzYcp0ks8RqiME1913nnJdBPh0NgAXcH4y5ax1Mc0gYo26d9tMJTuWvVwbm872KA==}
+  '@tiptap/extension-subscript@2.10.3':
+    resolution: {integrity: sha512-GkOwXIruM7QksmlfqLTKTC6JBpWSBDN2eeoPwggxXuqetqYs4sIx1ul3LEGDQy0vglcFKGkbbO2IiHCO/0fSWA==}
     peerDependencies:
       '@tiptap/core': ^2.7.0
 
-  '@tiptap/extension-superscript@2.10.1':
-    resolution: {integrity: sha512-9VSKckeVdCgnW8eOaawseiSv0ypfg2Mmw4zme2iCsYShBDKsWu5Ziy5KabSJXj+ie0kIPcHlZSAocmDMYNJVKg==}
+  '@tiptap/extension-superscript@2.10.3':
+    resolution: {integrity: sha512-4bXDPyT10ByVCLXFR8A70TcpFJ0H3PicRsxKJcQ+KZIauNUo5BBUpkF2cK+IOUp4UZ1W5ZBeuMQG5HWMuV9T1A==}
     peerDependencies:
       '@tiptap/core': ^2.7.0
 
@@ -889,8 +898,8 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.7.0
 
-  '@tiptap/extension-underline@2.10.1':
-    resolution: {integrity: sha512-gFyhXE+RjpgHGiitMZsMjDeuoXCh2GpflgO5PYZmhL3hviyLJjHBgMt/lBzaDO4EepGIpyk10ggD+eEUIH6p+Q==}
+  '@tiptap/extension-underline@2.10.3':
+    resolution: {integrity: sha512-VeGs0jeNiTnXddHHJEgOc/sKljZiyTEgSSuqMmsBACrr9aGFXbLTgKTvNjkZ9WzSnu7LwgJuBrwEhg8yYixUyQ==}
     peerDependencies:
       '@tiptap/core': ^2.7.0
 
@@ -3777,17 +3786,6 @@ packages:
       '@vue/composition-api':
         optional: true
 
-  vue-demi@0.14.7:
-    resolution: {integrity: sha512-EOG8KXDQNwkJILkx/gPcoL/7vH+hORoBaKgGe+6W7VFMvCYJfmF2dGbvgDroVnI8LU7/kTu8mbjRZGBU1z9NTA==}
-    engines: {node: '>=12'}
-    hasBin: true
-    peerDependencies:
-      '@vue/composition-api': ^1.0.0-rc.1
-      vue: ^3.0.0-0 || ^2.6.0
-    peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
-
   vue-eslint-parser@9.4.2:
     resolution: {integrity: sha512-Ry9oiGmCAK91HrKMtCrKFWmSFWvYkpGglCeFAIqDdr9zdXmMMpJOmUJS7WWsW7fX81h6mwHmUZCQQ1E0PkSwYQ==}
     engines: {node: ^14.17.0 || >=16.0.0}
@@ -4473,13 +4471,13 @@ snapshots:
 
   '@tailor-cms/cek-common@0.0.3': {}
 
-  '@tailor-cms/core-components@1.0.14(@tailor-cms/utils@1.0.1)(@tiptap/core@2.10.1(@tiptap/pm@2.10.1))(@tiptap/pm@2.10.1)(@tiptap/starter-kit@2.10.1)(@tiptap/vue-3@2.10.1(@tiptap/core@2.10.1(@tiptap/pm@2.10.1))(@tiptap/pm@2.10.1)(vue@3.3.4))(@types/lodash@4.17.9)(@types/pluralize@0.0.33)(date-fns@3.3.1)(lodash@4.17.21)(p-min-delay@4.0.2)(pluralize@8.0.0)(vee-validate@4.14.7(vue@3.3.4))(vue@3.3.4)(vuedraggable@4.1.0(vue@3.3.4))(vuetify@3.7.3)(yup@1.3.3)':
+  '@tailor-cms/core-components@1.0.20(@tailor-cms/utils@1.0.1)(@tiptap/core@2.10.1(@tiptap/pm@2.10.1))(@tiptap/pm@2.10.1)(@tiptap/starter-kit@2.10.1)(@tiptap/vue-3@2.10.1(@tiptap/core@2.10.1(@tiptap/pm@2.10.1))(@tiptap/pm@2.10.1)(vue@3.3.4))(@types/lodash@4.17.9)(@types/pluralize@0.0.33)(date-fns@3.3.1)(lodash@4.17.21)(p-min-delay@4.0.2)(pluralize@8.0.0)(vee-validate@4.14.7(vue@3.3.4))(vue@3.3.4)(vuedraggable@4.1.0(vue@3.3.4))(vuetify@3.7.3)(yup@1.3.3)':
     dependencies:
       '@tailor-cms/utils': 1.0.1
-      '@tiptap/extension-character-count': 2.10.1(@tiptap/core@2.10.1(@tiptap/pm@2.10.1))(@tiptap/pm@2.10.1)
-      '@tiptap/extension-subscript': 2.10.1(@tiptap/core@2.10.1(@tiptap/pm@2.10.1))
-      '@tiptap/extension-superscript': 2.10.1(@tiptap/core@2.10.1(@tiptap/pm@2.10.1))
-      '@tiptap/extension-underline': 2.10.1(@tiptap/core@2.10.1(@tiptap/pm@2.10.1))
+      '@tiptap/extension-character-count': 2.10.3(@tiptap/core@2.10.1(@tiptap/pm@2.10.1))(@tiptap/pm@2.10.1)
+      '@tiptap/extension-subscript': 2.10.3(@tiptap/core@2.10.1(@tiptap/pm@2.10.1))
+      '@tiptap/extension-superscript': 2.10.3(@tiptap/core@2.10.1(@tiptap/pm@2.10.1))
+      '@tiptap/extension-underline': 2.10.3(@tiptap/core@2.10.1(@tiptap/pm@2.10.1))
       '@tiptap/pm': 2.10.1
       '@tiptap/starter-kit': 2.10.1
       '@tiptap/vue-3': 2.10.1(@tiptap/core@2.10.1(@tiptap/pm@2.10.1))(@tiptap/pm@2.10.1)(vue@3.3.4)
@@ -4514,13 +4512,18 @@ snapshots:
       eslint-plugin-vue: 9.21.1(eslint@8.56.0)
       eslint-plugin-vuejs-accessibility: 2.2.1(eslint@8.56.0)
 
-  '@tailor-cms/tce-boot@0.6.6(@babel/parser@7.23.9)(@types/node@20.11.19)(rollup@4.12.0)':
+  '@tailor-cms/lx-components@0.0.2(vue@3.3.4)(vuetify@3.7.3)':
     dependencies:
-      '@tailor-cms/tce-display-runtime': 0.6.0(@babel/parser@7.23.9)(@types/node@20.11.19)(rollup@4.12.0)
-      '@tailor-cms/tce-edit-next-runtime': 0.6.6(@types/node@20.11.19)
+      vue: 3.3.4
+      vuetify: 3.7.3(typescript@5.3.3)(vite-plugin-vuetify@1.0.2)(vue@3.3.4)
+
+  '@tailor-cms/tce-boot@0.6.19(@babel/parser@7.23.9)(@types/node@20.11.19)(rollup@4.12.0)':
+    dependencies:
+      '@tailor-cms/tce-display-runtime': 0.6.6(@babel/parser@7.23.9)(@types/node@20.11.19)(rollup@4.12.0)
+      '@tailor-cms/tce-edit-next-runtime': 0.6.19(@types/node@20.11.19)
       '@tailor-cms/tce-edit-runtime': 0.5.0(@babel/parser@7.23.9)(@types/node@20.11.19)(rollup@4.12.0)
       '@tailor-cms/tce-preview-runtime': 0.5.0(@types/node@20.11.19)
-      '@tailor-cms/tce-server-runtime': 0.5.1(@types/node@20.11.19)
+      '@tailor-cms/tce-server-runtime': 0.5.3(@types/node@20.11.19)
       boxen: 7.1.1
       concurrently: 8.2.2
       dotenv: 16.4.5
@@ -4557,7 +4560,7 @@ snapshots:
       - vue-i18n
       - webpack-plugin-vuetify
 
-  '@tailor-cms/tce-display-runtime@0.6.0(@babel/parser@7.23.9)(@types/node@20.11.19)(rollup@4.12.0)':
+  '@tailor-cms/tce-display-runtime@0.6.6(@babel/parser@7.23.9)(@types/node@20.11.19)(rollup@4.12.0)':
     dependencies:
       '@mdi/font': 7.2.96
       '@vitejs/plugin-vue': 4.3.4(vite@4.4.9(@types/node@20.11.19)(sass@1.68.0))(vue@3.3.4)
@@ -4590,7 +4593,7 @@ snapshots:
       - terser
       - webpack-plugin-vuetify
 
-  '@tailor-cms/tce-edit-next-runtime@0.6.6(@types/node@20.11.19)':
+  '@tailor-cms/tce-edit-next-runtime@0.6.19(@types/node@20.11.19)':
     dependencies:
       '@mdi/font': 7.4.47
       '@tailor-cms/cek-common': 0.0.3
@@ -4687,7 +4690,7 @@ snapshots:
       - vue-i18n
       - webpack-plugin-vuetify
 
-  '@tailor-cms/tce-server-runtime@0.5.1(@types/node@20.11.19)':
+  '@tailor-cms/tce-server-runtime@0.5.3(@types/node@20.11.19)':
     dependencies:
       '@lukeed/uuid': 2.0.1
       bluebird: 3.7.2
@@ -4751,7 +4754,7 @@ snapshots:
     dependencies:
       '@tiptap/core': 2.10.1(@tiptap/pm@2.10.1)
 
-  '@tiptap/extension-character-count@2.10.1(@tiptap/core@2.10.1(@tiptap/pm@2.10.1))(@tiptap/pm@2.10.1)':
+  '@tiptap/extension-character-count@2.10.3(@tiptap/core@2.10.1(@tiptap/pm@2.10.1))(@tiptap/pm@2.10.1)':
     dependencies:
       '@tiptap/core': 2.10.1(@tiptap/pm@2.10.1)
       '@tiptap/pm': 2.10.1
@@ -4823,11 +4826,11 @@ snapshots:
     dependencies:
       '@tiptap/core': 2.10.1(@tiptap/pm@2.10.1)
 
-  '@tiptap/extension-subscript@2.10.1(@tiptap/core@2.10.1(@tiptap/pm@2.10.1))':
+  '@tiptap/extension-subscript@2.10.3(@tiptap/core@2.10.1(@tiptap/pm@2.10.1))':
     dependencies:
       '@tiptap/core': 2.10.1(@tiptap/pm@2.10.1)
 
-  '@tiptap/extension-superscript@2.10.1(@tiptap/core@2.10.1(@tiptap/pm@2.10.1))':
+  '@tiptap/extension-superscript@2.10.3(@tiptap/core@2.10.1(@tiptap/pm@2.10.1))':
     dependencies:
       '@tiptap/core': 2.10.1(@tiptap/pm@2.10.1)
 
@@ -4839,7 +4842,7 @@ snapshots:
     dependencies:
       '@tiptap/core': 2.10.1(@tiptap/pm@2.10.1)
 
-  '@tiptap/extension-underline@2.10.1(@tiptap/core@2.10.1(@tiptap/pm@2.10.1))':
+  '@tiptap/extension-underline@2.10.3(@tiptap/core@2.10.1(@tiptap/pm@2.10.1))':
     dependencies:
       '@tiptap/core': 2.10.1(@tiptap/pm@2.10.1)
 
@@ -5255,7 +5258,7 @@ snapshots:
       '@types/web-bluetooth': 0.0.17
       '@vueuse/metadata': 10.4.1
       '@vueuse/shared': 10.4.1(vue@3.3.4)
-      vue-demi: 0.14.7(vue@3.3.4)
+      vue-demi: 0.14.10(vue@3.3.4)
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
@@ -5273,7 +5276,7 @@ snapshots:
 
   '@vueuse/shared@10.4.1(vue@3.3.4)':
     dependencies:
-      vue-demi: 0.14.7(vue@3.3.4)
+      vue-demi: 0.14.10(vue@3.3.4)
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
@@ -8133,10 +8136,6 @@ snapshots:
       sass: 1.68.0
 
   vue-demi@0.14.10(vue@3.3.4):
-    dependencies:
-      vue: 3.3.4
-
-  vue-demi@0.14.7(vue@3.3.4):
     dependencies:
       vue: 3.3.4
 
