@@ -17,8 +17,8 @@
     >
       <VItemGroup
         v-model="selectedAnswer"
-        class="w-100 d-flex ga-4"
-        selected-class="bg-blue-grey-lighten-4"
+        class="w-100 d-flex ga-2"
+        selected-class="bg-blue-grey-lighten-5"
         mandatory
       >
         <VItem
