@@ -1,5 +1,11 @@
 # @tailor-cms/ce-true-false-server
 
+## 0.0.5
+
+### Patch Changes
+
+- Bumped tce-display-runtime.
+
 ## 0.0.4
 
 ### Patch Changes
