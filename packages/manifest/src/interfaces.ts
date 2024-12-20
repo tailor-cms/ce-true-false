@@ -1,6 +1,10 @@
 export interface ElementData {
-  question: string;
-  correct: boolean | null;
+  isGradable?: boolean;
+  embeds: Record<string, any>;
+  question: string[];
+  correct?: boolean | null;
+  hint: string;
+  feedback: { [key: number]: string };
 }
 
 export interface Element {
@@ -29,6 +33,9 @@ export interface ElementManifest {
   version: string;
   name: string;
   ssr: boolean;
+  isComposite: boolean;
+  isQuestion: boolean;
+  isGradable?: boolean;
   initState: DataInitializer;
   Edit?: object;
   TopToolbar?: object;

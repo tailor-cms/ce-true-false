@@ -1,7 +1,9 @@
 {
   "name": "@tailor-cms/ce-true-false-display",
+  "description": "Tailor CMS true - false end-user component",
+  "author": "Studion <info@gostudion.com> (https://github.com/tailor-cms)",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -29,8 +31,9 @@
     "vite": "^4.4.5",
     "vue-tsc": "^1.8.5"
   },
-  "description": "Tailor CMS true - false element",
-  "author": "Studion <info@gostudion.com> (https://github.com/tailor-cms)",
+  "dependencies": {
+    "@tailor-cms/lx-components": "^0.0.2"
+  },
   "publishConfig": {
     "access": "public"
   }

@@ -1,6 +1,14 @@
 <template>
-  <VForm ref="form" class="tce-root" @submit.prevent="submit">
-    <div class="px-2 my-4">{{ data.question }}</div>
+  <QuestionContainer
+    :data="data"
+    :is-correct="userState.isCorrect"
+    :is-graded="isGraded"
+    :is-submitted="isSubmitted"
+    allowed-retake
+    @retry="isSubmitted = false"
+    @submit="submit"
+  >
+    <div class="text-subtitle-2 mb-2">Select one:</div>
     <VInput
       :rules="[requiredRule]"
       :validation-value="selectedAnswer !== null"
@@ -9,8 +17,8 @@
     >
       <VItemGroup
         v-model="selectedAnswer"
-        class="w-100 d-flex mb-3"
-        selected-class="bg-blue-grey-lighten-4"
+        class="w-100 d-flex ga-2"
+        selected-class="bg-blue-grey-lighten-5"
         mandatory
       >
         <VItem
@@ -21,7 +29,7 @@
         >
           <VCard
             :class="selectedClass"
-            :disabled="submitted"
+            :disabled="isSubmitted"
             class="flex-grow-1 d-flex align-center px-4 py-3"
             color="blue-grey-darken-2"
             rounded="lg"
@@ -34,36 +42,23 @@
         </VItem>
       </VItemGroup>
     </VInput>
-    <VAlert
-      v-if="submitted"
-      :text="userState?.isCorrect ? 'Correct' : 'Incorrect'"
-      :type="userState?.isCorrect ? 'success' : 'error'"
-      class="mb-3"
-      rounded="lg"
-      variant="tonal"
-    />
-    <div class="d-flex justify-end">
-      <VBtn v-if="!submitted" type="submit" variant="tonal">Submit</VBtn>
-      <VBtn v-else variant="tonal" @click="submitted = false">Try Again</VBtn>
-    </div>
-  </VForm>
+  </QuestionContainer>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { ElementData } from '@tailor-cms/ce-true-false-manifest';
+import { QuestionContainer } from '@tailor-cms/lx-components';
 
 const props = defineProps<{ id: number; data: ElementData; userState: any }>();
 const emit = defineEmits(['interaction']);
 
-const form = ref<HTMLFormElement>();
-const submitted = ref('isCorrect' in (props.userState ?? {}));
+const isSubmitted = ref(!!props.userState.isSubmitted);
 const selectedAnswer = ref<boolean>(props.userState?.response ?? null);
 
-const submit = async () => {
-  const { valid } = await form.value?.validate();
-  if (valid) emit('interaction', { response: selectedAnswer.value });
-};
+const isGraded = computed(() => 'isCorrect' in props.userState);
+
+const submit = () => emit('interaction', { response: selectedAnswer.value });
 
 const getIcon = (value: boolean, isSelected: boolean) => {
   if (isSelected) return value ? 'mdi-check-circle' : 'mdi-close-circle';
@@ -78,7 +73,7 @@ watch(
   () => props.userState,
   (state = {}) => {
     selectedAnswer.value = state.response ?? null;
-    submitted.value = 'isCorrect' in state;
+    isSubmitted.value = !!state.isSubmitted;
   },
   { deep: true },
 );

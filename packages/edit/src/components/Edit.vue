@@ -1,89 +1,85 @@
 <template>
-  <VForm
-    ref="form"
-    class="tce-container"
-    validate-on="submit"
-    @submit.prevent="save"
+  <QuestionContainer
+    v-bind="{
+      type: manifest.name,
+      icon: manifest.ui.icon,
+      embedTypes,
+      elementData,
+      isDirty,
+      isDisabled,
+    }"
+    show-feedback
+    @cancel="updateData(element.data)"
+    @save="save"
+    @update="updateData($event)"
   >
-    <VTextarea
-      v-model="elementData.question"
-      :readonly="isDisabled"
-      :rules="[requiredRule]"
-      class="my-3"
-      label="Question"
-      rows="3"
-      auto-grow
-    />
-    <div class="text-subtitle-2 mb-2">Select correct answer</div>
-    <VRadioGroup
-      id="correct-answer"
-      v-model="elementData.correct"
-      :rules="[requiredRule]"
-      density="comfortable"
+    <div class="text-subtitle-2 mb-2">{{ title }}</div>
+    <VInput
+      v-slot="{ isValid }"
+      :model-value="elementData.correct"
+      :rules="correctValidation"
+      class="mb-4"
     >
-      <VRadio
-        v-for="value in [true, false]"
-        :key="value"
-        :error="correctAnswerValidation"
-        :label="value ? 'True' : 'False'"
-        :readonly="isDisabled"
-        :value="value"
-        color="primary"
-        hide-details
-      />
-    </VRadioGroup>
-    <div v-if="!isDisabled" class="d-flex justify-end">
-      <VBtn :disabled="isDirty" variant="text" @click="cancel">Cancel</VBtn>
-      <VBtn :disabled="isDirty" class="ml-2" type="submit" variant="tonal">
-        Save
-      </VBtn>
-    </div>
-  </VForm>
+      <div>
+        <VRadio
+          v-for="value in [true, false]"
+          :key="value"
+          :error="isValid.value === false"
+          :false-icon="isGradable ? 'mdi-circle-outline' : 'mdi-circle'"
+          :label="value ? 'True' : 'False'"
+          :model-value="elementData.correct === value"
+          :readonly="isDisabled || !isGradable"
+          color="primary"
+          hide-details
+          @click="elementData.correct = value"
+        />
+      </div>
+    </VInput>
+  </QuestionContainer>
 </template>
 
 <script lang="ts" setup>
-import { computed, defineEmits, defineProps, reactive, ref, watch } from 'vue';
-import { Element, ElementData } from '@tailor-cms/ce-true-false-manifest';
+import { computed, defineEmits, defineProps, reactive, watch } from 'vue';
+import manifest, {
+  Element,
+  ElementData,
+} from '@tailor-cms/ce-true-false-manifest';
 import cloneDeep from 'lodash/cloneDeep';
+import isBoolean from 'lodash/isBoolean';
 import isEqual from 'lodash/isEqual';
+import { QuestionContainer } from '@tailor-cms/core-components';
 
 const emit = defineEmits(['save']);
 const props = defineProps<{
+  embedTypes: any[];
   element: Element;
   isFocused: boolean;
   isDisabled: boolean;
 }>();
 
-const form = ref<HTMLFormElement>();
+const isGradable = computed(() => props.element.data.isGradable);
 const elementData = reactive<ElementData>(cloneDeep(props.element.data));
 
-const isDirty = computed(() => isEqual(elementData, props.element.data));
-const correctAnswerValidation = computed(() => {
-  const radioGroup = form.value?.items.find(
-    (it: any) => (it.id = 'correct-answer'),
-  );
-  return radioGroup?.isValid === false;
+const isDirty = computed(() => !isEqual(elementData, props.element.data));
+
+const title = computed(() =>
+  isGradable.value ? 'Select correct answer' : 'Options',
+);
+
+const save = () => emit('save', elementData);
+
+const updateData = (data: ElementData) => {
+  Object.assign(elementData, cloneDeep(data));
+};
+
+const correctValidation = computed(() => {
+  if (!isGradable.value) return [];
+  return [
+    (val?: boolean) => isBoolean(val) || 'Please choose the correct answer',
+  ];
 });
 
-const save = async () => {
-  const { valid } = await form.value?.validate();
-  if (valid) emit('save', elementData);
-};
-
-const cancel = () => {
-  Object.assign(elementData, cloneDeep(props.element.data));
-  form.value?.resetValidation();
-};
-
-const requiredRule = (val: string | boolean | number) => {
-  if (val !== null && val !== undefined && val !== '') return true;
-  return 'The field is required';
-};
-
-watch(
-  () => props.element.data,
-  (data) => Object.assign(elementData, cloneDeep(data)),
-);
+watch(() => props.element.data, updateData);
 </script>
 
 <style lang="scss" scoped>
