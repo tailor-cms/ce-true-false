@@ -1,5 +1,11 @@
 # @tailor-cms/ce-true-false-edit
 
+## 0.0.6
+
+### Patch Changes
+
+- Remove prefix from element type.
+
 ## 0.0.5
 
 ### Patch Changes
