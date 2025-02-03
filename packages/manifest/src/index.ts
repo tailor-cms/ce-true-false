@@ -15,7 +15,6 @@ export const name = 'True - False';
 export const initState: DataInitializer = (): ElementData => ({
   correct: null,
   embeds: {},
-  question: [],
   hint: '',
   feedback: {},
 });
