@@ -1,17 +1,8 @@
 <template>
   <QuestionContainer
-    v-bind="{
-      type: manifest.name,
-      icon: manifest.ui.icon,
-      elementData,
-      embedElementConfig,
-      isDirty,
-      isDisabled,
-    }"
+    v-bind="{ elementData, embedElementConfig, isDisabled }"
     show-feedback
-    @cancel="updateData(element.data)"
-    @save="save"
-    @update="updateData($event)"
+    @update="emit('update', $event)"
   >
     <div class="text-subtitle-2 mb-2">{{ title }}</div>
     <VInput
@@ -22,16 +13,16 @@
     >
       <div>
         <VRadio
-          v-for="value in [true, false]"
-          :key="value"
+          v-for="correct in [true, false]"
+          :key="correct"
           :error="isValid.value === false"
           :false-icon="isGradable ? 'mdi-circle-outline' : 'mdi-circle'"
-          :label="value ? 'True' : 'False'"
-          :model-value="elementData.correct === value"
+          :label="correct ? 'True' : 'False'"
+          :model-value="elementData.correct === correct"
           :readonly="isDisabled || !isGradable"
           color="primary"
           hide-details
-          @click="elementData.correct = value"
+          @click="emit('update', { correct })"
         />
       </div>
     </VInput>
@@ -39,38 +30,25 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineEmits, defineProps, reactive, watch } from 'vue';
-import manifest, {
-  Element,
-  ElementData,
-} from '@tailor-cms/ce-true-false-manifest';
-import cloneDeep from 'lodash/cloneDeep';
+import { computed, defineEmits, defineProps } from 'vue';
+import { Element } from '@tailor-cms/ce-true-false-manifest';
 import isBoolean from 'lodash/isBoolean';
-import isEqual from 'lodash/isEqual';
 import { QuestionContainer } from '@tailor-cms/core-components';
 
-const emit = defineEmits(['save']);
 const props = defineProps<{
   element: Element;
   embedElementConfig: any[];
   isFocused: boolean;
   isDisabled: boolean;
 }>();
+const emit = defineEmits(['save', 'update']);
 
-const isGradable = computed(() => props.element.data.isGradable);
-const elementData = reactive<ElementData>(cloneDeep(props.element.data));
-
-const isDirty = computed(() => !isEqual(elementData, props.element.data));
+const elementData = computed(() => props.element.data);
+const isGradable = computed(() => elementData.value.isGradable);
 
 const title = computed(() =>
   isGradable.value ? 'Select correct answer' : 'Options',
 );
-
-const save = () => emit('save', elementData);
-
-const updateData = (data: ElementData) => {
-  Object.assign(elementData, cloneDeep(data));
-};
 
 const correctValidation = computed(() => {
   if (!isGradable.value) return [];
@@ -78,8 +56,6 @@ const correctValidation = computed(() => {
     (val?: boolean) => isBoolean(val) || 'Please choose the correct answer',
   ];
 });
-
-watch(() => props.element.data, updateData);
 </script>
 
 <style lang="scss" scoped>
