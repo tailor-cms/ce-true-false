@@ -1,5 +1,11 @@
 # @tailor-cms/ce-true-false-manifest
 
+## 0.0.10
+
+### Patch Changes
+
+- Updated package icon.
+
 ## 0.0.9
 
 ### Patch Changes
