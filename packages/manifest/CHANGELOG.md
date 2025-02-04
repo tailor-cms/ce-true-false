@@ -1,5 +1,11 @@
 # @tailor-cms/ce-true-false-manifest
 
+## 0.0.9
+
+### Patch Changes
+
+- Bumped core-components package.
+
 ## 0.0.8
 
 ### Patch Changes
