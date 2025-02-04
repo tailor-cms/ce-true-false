@@ -13,8 +13,9 @@ export const name = 'True - False';
 // Function which inits element state (data property on the Content Element
 // entity)
 export const initState: DataInitializer = (): ElementData => ({
-  correct: null,
   embeds: {},
+  question: [],
+  correct: null,
   hint: '',
   feedback: {},
 });
