@@ -1,6 +1,6 @@
 <template>
   <QuestionContainer
-    v-bind="{ elementData, embedElementConfig, isDisabled }"
+    v-bind="{ elementData, embedElementConfig, isReadonly }"
     show-feedback
     @update="emit('update', $event)"
   >
@@ -19,7 +19,7 @@
           :false-icon="isGradable ? 'mdi-circle-outline' : 'mdi-circle'"
           :label="correct ? 'True' : 'False'"
           :model-value="elementData.correct === correct"
-          :readonly="isDisabled || !isGradable"
+          :readonly="isReadonly || !isGradable"
           color="primary"
           hide-details
           @click="emit('update', { correct })"
@@ -32,14 +32,15 @@
 <script lang="ts" setup>
 import { computed, defineEmits, defineProps } from 'vue';
 import { Element } from '@tailor-cms/ce-true-false-manifest';
-import isBoolean from 'lodash/isBoolean';
+import { isBoolean } from 'lodash-es';
 import { QuestionContainer } from '@tailor-cms/core-components';
 
 const props = defineProps<{
   element: Element;
   embedElementConfig: any[];
+  isDragged: boolean;
   isFocused: boolean;
-  isDisabled: boolean;
+  isReadonly: boolean;
 }>();
 const emit = defineEmits(['save', 'update']);
 
