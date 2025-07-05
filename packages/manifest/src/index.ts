@@ -1,3 +1,7 @@
+import { OpenAISchema } from '@tailor-cms/cek-common';
+import { times } from 'lodash-es';
+import { v4 as uuid } from 'uuid';
+
 import type {
   DataInitializer,
   ElementData,
@@ -32,6 +36,69 @@ const ui = {
   forceFullWidth: true,
 };
 
+export const ai = {
+  Schema: {
+    type: 'json_schema',
+    name: 'ce_true_false',
+    schema: {
+      type: 'object',
+      properties: {
+        question: { type: 'string' },
+        correct: { type: 'boolean' },
+        feedback: {
+          type: 'object',
+          // OpenAI does not support pattern properties
+          properties: times(2).reduce(
+            (acc, it) => ({ ...acc, [it]: { type: 'string' } }),
+            {},
+          ),
+          required: times(2, String),
+          additionalProperties: false,
+        },
+        hint: { type: 'string' },
+      },
+      required: ['question', 'correct', 'feedback', 'hint'],
+      additionalProperties: false,
+    },
+  } as OpenAISchema,
+  getPrompt: () => `
+    Generate true-false question as an object with the following properties:
+    {
+      "question": "",
+      "correct": 0,
+      "answers": [],
+      "hint": "",
+      "feedback": {}
+    }
+    where:
+      - 'question' is the question prompt
+      - 'correct' is a correct answer index (0-based)
+      - 'hint' is an optional hint for the correct solution
+      - 'feedback' is an object with feedback for each answer, using indexes as
+        keys. Feedback is optional and should provide more information
+        about the answers.
+  `,
+  processResponse: ({ correct, hint, feedback, question }: any = {}) => {
+    const id = uuid();
+    return {
+      isGradable: true,
+      question: [id],
+      correct,
+      hint,
+      feedback,
+      embeds: {
+        [id]: {
+          id,
+          data: { content: question },
+          embedded: true,
+          position: 1,
+          type: 'TIPTAP_HTML',
+        },
+      },
+    };
+  },
+};
+
 const manifest: ElementManifest = {
   type,
   version: '1.0',
@@ -41,6 +108,7 @@ const manifest: ElementManifest = {
   ssr: false,
   initState,
   ui,
+  ai,
 };
 
 export default manifest;
