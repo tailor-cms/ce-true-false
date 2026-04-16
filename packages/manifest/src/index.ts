@@ -66,7 +66,6 @@ export const ai = {
     {
       "question": "",
       "correct": 0,
-      "answers": [],
       "hint": "",
       "feedback": {}
     }
