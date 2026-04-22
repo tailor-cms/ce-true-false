@@ -51,8 +51,8 @@ export const onUserInteraction: OnUserInteractionHook<Element> = (
 export const hookMap: HookMap<Element> = new Map(
   Object.entries({
     afterLoaded,
-    onUserInteraction,
     beforeDisplay,
+    onUserInteraction,
   }),
 );
 
