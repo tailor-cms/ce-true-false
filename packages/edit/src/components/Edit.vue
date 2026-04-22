@@ -1,10 +1,6 @@
 <template>
-  <QuestionContainer
-    v-bind="{ elementData, embedElementConfig, isReadonly }"
-    show-feedback
-    @update="emit('update', $event)"
-  >
-    <div class="text-subtitle-2 mb-2">{{ title }}</div>
+  <div class="question-form">
+    <div class="text-title-small mb-2">{{ title }}</div>
     <VInput
       v-slot="{ isValid }"
       :model-value="elementData.correct"
@@ -14,7 +10,7 @@
       <div>
         <VRadio
           v-for="correct in [true, false]"
-          :key="correct"
+          :key="String(correct)"
           :error="isValid.value === false"
           :false-icon="isGradable ? 'mdi-circle-outline' : 'mdi-circle'"
           :label="correct ? 'True' : 'False'"
@@ -26,14 +22,13 @@
         />
       </div>
     </VInput>
-  </QuestionContainer>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, defineEmits, defineProps } from 'vue';
-import { Element } from '@tailor-cms/ce-true-false-manifest';
+import { computed } from 'vue';
+import type { Element, ElementData } from '@tailor-cms/ce-true-false-manifest';
 import { isBoolean } from 'lodash-es';
-import { QuestionContainer } from '@tailor-cms/core-components';
 
 const props = defineProps<{
   element: Element;
@@ -42,7 +37,10 @@ const props = defineProps<{
   isFocused: boolean;
   isReadonly: boolean;
 }>();
-const emit = defineEmits(['save', 'update']);
+
+const emit = defineEmits<{
+  update: [data: Partial<ElementData>];
+}>();
 
 const elementData = computed(() => props.element.data);
 const isGradable = computed(() => elementData.value.isGradable);
@@ -60,7 +58,7 @@ const correctValidation = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-.tce-container {
+.question-form {
   text-align: left;
 }
 </style>
