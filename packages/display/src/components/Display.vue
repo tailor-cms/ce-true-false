@@ -22,7 +22,7 @@
             class="flex-grow-1 d-flex align-center px-4 py-3"
             border
           >
-            <VIcon color="primary-darken-1" size="large" start>
+            <VIcon color="primary" size="large" start>
               {{ getIcon(value, isSelected) }}
             </VIcon>
             {{ value ? 'True' : 'False' }}
