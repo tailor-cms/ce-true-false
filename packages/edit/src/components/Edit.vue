@@ -1,33 +1,38 @@
 <template>
-  <div class="question-form">
-    <div class="text-title-small mb-2">{{ title }}</div>
-    <VInput
-      v-slot="{ isValid }"
-      :model-value="elementData.correct"
-      :rules="correctValidation"
-      class="mb-4"
-    >
-      <div>
-        <VRadio
-          v-for="correct in [true, false]"
-          :key="String(correct)"
-          :error="isValid.value === false"
-          :false-icon="isGradable ? 'mdi-circle-outline' : 'mdi-circle'"
-          :label="correct ? 'True' : 'False'"
-          :model-value="elementData.correct === correct"
-          :readonly="isReadonly || !isGradable"
-          color="primary"
-          hide-details
-          @click="emit('update', { correct })"
-        />
+  <div class="question-form mb-4">
+    <template v-if="isGradable">
+      <div class="text-title-small mb-2">Select correct answer</div>
+      <VRadioGroup
+        :model-value="elementData.correct"
+        :readonly="isReadonly"
+        :rules="correctValidation"
+        color="primary"
+        hide-details="auto"
+        @update:model-value="(correct) => emit('update', { correct })"
+      >
+        <VRadio :value="true" label="True" />
+        <VRadio :value="false" label="False" />
+      </VRadioGroup>
+    </template>
+    <template v-else>
+      <div class="text-title-small mb-2">Options</div>
+      <div class="d-flex flex-column">
+        <div
+          v-for="label in ['True', 'False']"
+          :key="label"
+          class="d-flex align-center pa-2"
+        >
+          <VIcon color="primary" start>mdi-circle</VIcon>
+          {{ label }}
+        </div>
       </div>
-    </VInput>
+    </template>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
 import type { Element, ElementData } from '@tailor-cms/ce-true-false-manifest';
+import { computed } from 'vue';
 import { isBoolean } from 'lodash-es';
 
 const props = defineProps<{
@@ -45,16 +50,10 @@ const emit = defineEmits<{
 const elementData = computed(() => props.element.data);
 const isGradable = computed(() => elementData.value.isGradable);
 
-const title = computed(() =>
-  isGradable.value ? 'Select correct answer' : 'Options',
-);
-
-const correctValidation = computed(() => {
-  if (!isGradable.value) return [];
-  return [
-    (val?: boolean) => isBoolean(val) || 'Please choose the correct answer',
-  ];
-});
+const correctValidation = [
+  (val?: boolean | null) =>
+    isBoolean(val) || 'Please choose the correct answer',
+];
 </script>
 
 <style lang="scss" scoped>
