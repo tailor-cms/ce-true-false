@@ -5,23 +5,8 @@ import { Edit } from '../pom';
 
 const ELEMENT_ID = 'test-true-false-edit';
 
-const QUESTION_SEED = {
-  isGradable: true,
-  embeds: {
-    prompt: {
-      id: 'prompt',
-      type: 'TIPTAP_HTML',
-      position: 1,
-      embedded: true,
-      data: { content: 'Is the sky blue?' },
-    },
-  },
-  question: ['prompt'],
-};
-
 test.beforeEach(async ({ page }) => {
-  await elementClient.reset(ELEMENT_ID);
-  await elementClient.update(ELEMENT_ID, QUESTION_SEED);
+  await elementClient.reset(ELEMENT_ID, { isGradable: true });
   await page.goto(`/?id=${ELEMENT_ID}`);
   await page.waitForLoadState('networkidle');
 });
@@ -75,8 +60,4 @@ test.describe('Readonly mode', () => {
     await edit.trueRadio.click();
     await expect(edit.trueRadio).not.toBeChecked();
   });
-});
-
-test.afterAll(async () => {
-  await elementClient.reset(ELEMENT_ID);
 });
