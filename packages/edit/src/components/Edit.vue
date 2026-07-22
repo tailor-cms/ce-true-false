@@ -6,7 +6,6 @@
         :model-value="elementData.correct"
         :readonly="isReadonly"
         :rules="correctValidation"
-        color="primary"
         hide-details="auto"
         @update:model-value="(correct) => emit('update', { correct })"
       >
@@ -17,13 +16,26 @@
     <template v-else>
       <div class="text-title-small mb-2">Options</div>
       <div class="d-flex flex-column">
-        <div
-          v-for="label in ['True', 'False']"
-          :key="label"
-          class="d-flex align-center pa-2"
-        >
-          <VIcon color="primary" start>mdi-circle</VIcon>
-          {{ label }}
+        <div class="d-flex align-center pa-1">
+          <VAvatar
+            class="font-weight-bold ma-1 mr-3"
+            color="surface-container-high"
+            icon="mdi-check"
+            size="small"
+          >
+            <VIcon icon="mdi-check" size="small" />
+          </VAvatar>
+          True
+        </div>
+        <div class="d-flex align-center pa-1">
+          <VAvatar
+            class="font-weight-bold ma-1 mr-3"
+            color="surface-container-high"
+            size="small"
+          >
+            <VIcon icon="mdi-close" size="small" />
+          </VAvatar>
+          False
         </div>
       </div>
     </template>
