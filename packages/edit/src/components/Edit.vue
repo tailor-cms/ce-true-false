@@ -1,43 +1,45 @@
 <template>
-  <div class="question-form mb-4">
+  <div class="question-form mb-6">
     <template v-if="isGradable">
-      <div class="text-title-small mb-2">Select correct answer</div>
-      <VRadioGroup
-        :model-value="elementData.correct"
-        :readonly="isReadonly"
-        :rules="correctValidation"
-        hide-details="auto"
-        @update:model-value="(correct) => emit('update', { correct })"
-      >
-        <VRadio :value="true" label="True" />
-        <VRadio :value="false" label="False" />
-      </VRadioGroup>
+      <div class="text-label-large mb-2">Select correct answer</div>
+      <div class="mb-4">
+        <VRadioGroup
+          :model-value="elementData.correct"
+          :readonly="isReadonly"
+          :rules="correctValidation"
+          color="secondary"
+          hide-details="auto"
+          @update:model-value="(correct) => emit('update', { correct })"
+        >
+          <VRadio :value="true" label="True" />
+          <VRadio :value="false" label="False" />
+        </VRadioGroup>
+      </div>
     </template>
     <template v-else>
-      <div class="text-title-small mb-2">Options</div>
-      <div class="d-flex flex-column">
-        <div class="d-flex align-center pa-1">
+      <div class="text-label-large mb-2">Options</div>
+      <VList class="d-flex flex-column py-0" density="compact">
+        <VListItem class="d-flex align-center px-2">
           <VAvatar
-            class="font-weight-bold ma-1 mr-3"
-            color="surface-container-high"
+            class="text-label-medium mr-2"
+            color="surface-container-highest"
             icon="mdi-check"
+            rounded="lg"
             size="small"
-          >
-            <VIcon icon="mdi-check" size="small" />
-          </VAvatar>
+          />
           True
-        </div>
-        <div class="d-flex align-center pa-1">
+        </VListItem>
+        <VListItem class="d-flex align-center px-2">
           <VAvatar
-            class="font-weight-bold ma-1 mr-3"
-            color="surface-container-high"
+            class="text-label-medium mr-2"
+            color="surface-container-highest"
+            icon="mdi-close"
+            rounded="lg"
             size="small"
-          >
-            <VIcon icon="mdi-close" size="small" />
-          </VAvatar>
+          />
           False
-        </div>
-      </div>
+        </VListItem>
+      </VList>
     </template>
   </div>
 </template>
